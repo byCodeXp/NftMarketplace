@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Web.Data;
 using Web.Data.Identity;
 using Web.Extensions;
+using Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorsHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 
