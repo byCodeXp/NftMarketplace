@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Web.Migrations
+namespace Infrastructure.Migrations
 {
     public partial class setup_db_with_identity : Migration
     {

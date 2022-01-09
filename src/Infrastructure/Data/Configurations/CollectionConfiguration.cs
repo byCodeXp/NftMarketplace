@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Web.Data.Configurations.Base;
-using Web.Data.Entities;
+﻿using Domain.Entities;
+using Infrastructure.Data.Configurations.Base;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Web.Data.Configurations;
+namespace Infrastructure.Data.Configurations;
 
 public class CollectionConfiguration : EntityConfiguration<Collection>
 {

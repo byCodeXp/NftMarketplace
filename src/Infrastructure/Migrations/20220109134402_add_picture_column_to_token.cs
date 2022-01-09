@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Web.Migrations
+namespace Infrastructure.Migrations
 {
     public partial class add_picture_column_to_token : Migration
     {

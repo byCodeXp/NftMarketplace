@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Web.Data;
+using Infrastructure.Data;
 
 #nullable disable
 
-namespace Web.Migrations
+namespace Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220109134136_new_entities_token_and_collection")]
-    partial class new_entities_token_and_collection
+    [Migration("20220109064003_setup_db_with_identity")]
+    partial class setup_db_with_identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -125,52 +125,6 @@ namespace Web.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Web.Data.Entities.Collection", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.ToTable("Collections");
-                });
-
-            modelBuilder.Entity("Web.Data.Entities.Token", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AuthorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CollectionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("CollectionId");
-
-                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("Web.Data.Identity.Role", b =>
@@ -316,42 +270,6 @@ namespace Web.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Web.Data.Entities.Collection", b =>
-                {
-                    b.HasOne("Web.Data.Identity.User", "Author")
-                        .WithMany("Collections")
-                        .HasForeignKey("AuthorId");
-
-                    b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("Web.Data.Entities.Token", b =>
-                {
-                    b.HasOne("Web.Data.Identity.User", "Author")
-                        .WithMany("Tokens")
-                        .HasForeignKey("AuthorId");
-
-                    b.HasOne("Web.Data.Entities.Collection", "Collection")
-                        .WithMany("Tokens")
-                        .HasForeignKey("CollectionId");
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Collection");
-                });
-
-            modelBuilder.Entity("Web.Data.Entities.Collection", b =>
-                {
-                    b.Navigation("Tokens");
-                });
-
-            modelBuilder.Entity("Web.Data.Identity.User", b =>
-                {
-                    b.Navigation("Collections");
-
-                    b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618
         }

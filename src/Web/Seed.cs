@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Web.Data.Identity;
+﻿using Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace Web;
 

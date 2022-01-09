@@ -1,6 +1,6 @@
-﻿using Mapster;
+﻿using Domain.Entities.Identity;
+using Mapster;
 using Microsoft.AspNetCore.Identity;
-using Web.Data.Identity;
 using Web.Endpoints.Requests;
 using Web.Endpoints.Responses;
 using Web.Exceptions;

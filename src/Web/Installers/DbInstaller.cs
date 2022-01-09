@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Entities.Identity;
+using Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Web.Data;
-using Web.Data.Identity;
 using Web.Installers.Base;
 
 namespace Web.Installers;

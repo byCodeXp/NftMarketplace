@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Web.Data.Entities;
 
-namespace Web.Data.Identity;
-
+namespace Domain.Entities.Identity;
+ 
 public class User : IdentityUser<Guid>
 {
     /// <summary>

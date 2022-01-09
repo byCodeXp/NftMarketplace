@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Web.Data.Entities;
-using Web.Data.Identity;
 
-namespace Web.Data;
+namespace Infrastructure.Data;
 
 public class DataContext : IdentityDbContext<User, Role, Guid>
 {

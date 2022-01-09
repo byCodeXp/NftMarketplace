@@ -1,7 +1,7 @@
-﻿using Web.Data.Entities.Base;
-using Web.Data.Identity;
+﻿using Domain.Entities.Base;
+using Domain.Entities.Identity;
 
-namespace Web.Data.Entities;
+namespace Domain.Entities;
 
 public record Collection : Entity
 {

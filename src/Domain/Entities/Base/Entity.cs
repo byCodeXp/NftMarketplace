@@ -1,4 +1,4 @@
-﻿namespace Web.Data.Entities.Base;
+﻿namespace Domain.Entities.Base;
 
 public abstract record Entity
 {
