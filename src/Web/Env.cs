@@ -7,7 +7,6 @@ public record Env
         public const string User = "User";
     }
 
-
     public record Identity
     {
         public record Claims
