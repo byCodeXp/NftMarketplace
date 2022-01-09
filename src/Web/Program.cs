@@ -8,6 +8,7 @@ using Web.Data.Identity;
 using Web.Extensions;
 using Web.Helpers;
 using Web.Middlewares;
+using Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,8 @@ builder.Services.AddAuthentication(options =>
 });
 
 builder.Services.AddTransient<JwtHelper>();
+
+builder.Services.AddTransient<IdentityService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
