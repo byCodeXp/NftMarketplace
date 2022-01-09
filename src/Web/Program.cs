@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Web.Data;
 using Web.Data.Identity;
 using Web.Extensions;
+using Web.Helpers;
 using Web.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,6 +43,8 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true
     };
 });
+
+builder.Services.AddTransient<JwtHelper>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
