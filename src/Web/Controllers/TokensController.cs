@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Base;
 using Web.Endpoints.Requests;
@@ -16,9 +17,10 @@ public class TokensController : ApiController
     }
 
     [HttpPost("create")]
+    [Authorize(Roles = Env.Roles.User)]
     public async Task<ActionResult<Token>> Create([FromBody] CreateTokenRequest request)
     {
         var result = await _mediator.Send(request);
-        return Ok(result);
+        return Created("Token", result);
     }
 }
