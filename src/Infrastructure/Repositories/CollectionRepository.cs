@@ -6,7 +6,7 @@ namespace Infrastructure.Repositories;
 
 public class CollectionRepository : Repository<Collection>, ICollectionRepository
 {
-    public CollectionRepository(DataContext context)
+    public CollectionRepository(IDataContext context)
         : base(context)
     {
     }

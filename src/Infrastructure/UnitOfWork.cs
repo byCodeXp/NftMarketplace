@@ -5,12 +5,11 @@ namespace Infrastructure;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly DataContext _context;
+    private readonly IDataContext _context;
 
-    public UnitOfWork(DataContext context)
+    public UnitOfWork(IDataContext context)
     {
         _context = context;
-        
         TokenRepository = new TokenRepository(context);
         CollectionRepository = new CollectionRepository(context);
     }

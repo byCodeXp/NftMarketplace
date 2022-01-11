@@ -6,7 +6,7 @@ namespace Infrastructure.Repositories;
 
 public class TokenRepository : Repository<Token>, ITokenRepository
 {
-    public TokenRepository(DataContext context)
+    public TokenRepository(IDataContext context)
         : base(context)
     {
     }

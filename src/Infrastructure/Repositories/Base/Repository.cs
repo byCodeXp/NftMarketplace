@@ -5,9 +5,9 @@ namespace Infrastructure.Repositories.Base;
 
 public abstract class Repository<TEntity> where TEntity : Entity
 {
-    private readonly DataContext _context;
+    private readonly IDataContext _context;
 
-    protected Repository(DataContext context)
+    protected Repository(IDataContext context)
     {
         _context = context;
     }

@@ -10,7 +10,7 @@ public class DbInstaller : IInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<DataContext>(options =>
+        services.AddDbContext<IDataContext, DataContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("Default"));
         });
