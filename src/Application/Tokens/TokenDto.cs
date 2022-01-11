@@ -1,8 +1,9 @@
-﻿namespace Web.Models;
+﻿namespace Application.Tokens;
 
-public class TokenVm
+public record TokenDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
+    public string Picture { get; set; }
 }

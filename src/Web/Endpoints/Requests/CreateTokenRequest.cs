@@ -3,7 +3,7 @@ using Web.Models;
 
 namespace Web.Endpoints.Requests;
 
-public record CreateTokenRequest : IRequest<TokenVm>
+public record CreateTokenRequest
 {
     public string Name { get; set; }
     public string Description { get; set; }

@@ -1,9 +1,11 @@
-﻿using Infrastructure;
+﻿using Application.Collections;
+using Application.Collections.Commands;
+using Application.Collections.Queries;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Base;
 using Web.Endpoints.Requests;
-using Web.Models;
 
 namespace Web.Controllers;
 
@@ -19,14 +21,20 @@ public class CollectionsController : ApiController
     [HttpGet]
     public async Task<IActionResult> Get()
     {
-        ICollection<CollectionVm> result = await _mediator.Send(new GetCollectionsRequest());
+        var query = new GetCollectionsQuery();
+        
+        ICollection<CollectionDto> result = await _mediator.Send(query);
+        
         return Ok(result);
     }
 
     [HttpPost("create")]
     public async Task<IActionResult> Create([FromBody] CreateCollectionRequest request)
     {
-        CollectionVm result = await _mediator.Send(request);
+        var command = request.Adapt<CreateCollectionCommand>();
+
+        CollectionDto result = await _mediator.Send(command);
+        
         return Created("Collection", result);
     }
 }

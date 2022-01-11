@@ -1,6 +1,6 @@
-﻿namespace Web.Models;
+﻿namespace Application.Collections;
 
-public record CollectionVm
+public record CollectionDto
 {
     public Guid Id { get; set; }
     public string Name { get; set; }

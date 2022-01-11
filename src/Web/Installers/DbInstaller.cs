@@ -14,7 +14,7 @@ public class DbInstaller : IInstaller
         {
             options.UseSqlServer(configuration.GetConnectionString("Default"));
         });
-
+        
         services
             .AddIdentity<User, Role>()
             .AddDefaultTokenProviders()
