@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Infrastructure;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Base;
 using Web.Endpoints.Requests;
@@ -15,8 +16,15 @@ public class CollectionsController : ApiController
         _mediator = mediator;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Get()
+    {
+        ICollection<CollectionVm> result = await _mediator.Send(new GetCollectionsRequest());
+        return Ok(result);
+    }
+
     [HttpPost("create")]
-    public async Task<ActionResult<CollectionVm>> Create([FromBody] CreateCollectionRequest request)
+    public async Task<IActionResult> Create([FromBody] CreateCollectionRequest request)
     {
         CollectionVm result = await _mediator.Send(request);
         return Created("Collection", result);

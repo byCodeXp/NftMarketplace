@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Infrastructure;
+using MediatR;
 using Web.Helpers;
 using Web.Installers.Base;
 using Web.Services;
@@ -17,6 +18,7 @@ public class MvcInstaller : IInstaller
         
         services.AddTransient<JwtHelper>();
         services.AddTransient<IdentityService>();
+        services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         services.AddMediatR(typeof(Program));
     }
