@@ -1,4 +1,4 @@
-﻿namespace Web;
+﻿namespace Domain;
 
 public record Env
 {

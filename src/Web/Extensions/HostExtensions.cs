@@ -1,4 +1,5 @@
 ﻿using Domain.Entities.Identity;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 
 namespace Web.Extensions;

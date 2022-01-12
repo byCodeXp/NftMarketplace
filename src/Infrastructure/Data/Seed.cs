@@ -1,7 +1,8 @@
-﻿using Domain.Entities.Identity;
+﻿using Domain;
+using Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 
-namespace Web;
+namespace Infrastructure.Data;
 
 public class Seed
 {
