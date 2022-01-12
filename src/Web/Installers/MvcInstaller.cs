@@ -26,5 +26,15 @@ public class MvcInstaller : IInstaller
         services.AddMediatR(typeof(Program));
 
         services.AddValidatorsFromAssemblyContaining(typeof(Program), ServiceLifetime.Transient);
+
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(policy =>
+            {
+                policy.AllowAnyMethod();
+                policy.AllowAnyHeader();
+                policy.AllowAnyOrigin();
+            });
+        });
     }
 }

@@ -12,8 +12,12 @@ public class HttpRequestPipeline
             app.UseSwaggerUI();
         }
 
+        
+
         app.UseMiddleware<ErrorsHandlerMiddleware>();
 
+        app.UseCors();
+        
         app.UseHttpsRedirection();
         app.UseAuthentication();
         app.UseAuthorization();
