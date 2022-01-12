@@ -1,4 +1,7 @@
-﻿using Domain.Entities;
+﻿using Application.Tokens;
+using Application.Tokens.Commands;
+using Domain.Entities;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +23,10 @@ public class TokensController : ApiController
     [Authorize(Roles = Env.Roles.User)]
     public async Task<ActionResult<Token>> Create([FromBody] CreateTokenRequest request)
     {
-        var result = await _mediator.Send(request);
+        var command = request.Adapt<CreateTokenCommand>();
+        
+        TokenDto result = await _mediator.Send(command);
+        
         return Created("Token", result);
     }
 }

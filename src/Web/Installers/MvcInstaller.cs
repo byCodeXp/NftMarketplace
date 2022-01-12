@@ -1,4 +1,5 @@
-﻿using Infrastructure;
+﻿using FluentValidation;
+using Infrastructure;
 using MediatR;
 using Web.Helpers;
 using Web.Installers.Base;
@@ -21,5 +22,7 @@ public class MvcInstaller : IInstaller
         services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         services.AddMediatR(typeof(Program));
+
+        services.AddValidatorsFromAssemblyContaining(typeof(Program), ServiceLifetime.Transient);
     }
 }
