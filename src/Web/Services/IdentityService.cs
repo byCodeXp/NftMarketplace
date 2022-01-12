@@ -1,4 +1,6 @@
-﻿using Domain.Entities.Identity;
+﻿using Application;
+using Domain;
+using Domain.Entities.Identity;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Web.Endpoints.Requests;
@@ -9,7 +11,7 @@ using Web.Models;
 
 namespace Web.Services;
 
-public class IdentityService
+public class IdentityService : IIdentityService
 {
     private readonly UserManager<User> _userManager;
     private readonly JwtHelper _jwtHelper;

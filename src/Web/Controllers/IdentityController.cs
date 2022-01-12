@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Application;
+using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Base;
 using Web.Endpoints.Requests;
@@ -11,9 +13,9 @@ namespace Web.Controllers;
 
 public class IdentityController : ApiController
 {
-    private readonly IdentityService _identityService;
+    private readonly IIdentityService _identityService;
 
-    public IdentityController(IdentityService identityService)
+    public IdentityController(IIdentityService identityService)
     {
         _identityService = identityService;
     }

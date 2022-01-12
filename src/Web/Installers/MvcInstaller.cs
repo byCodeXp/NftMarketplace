@@ -17,9 +17,11 @@ public class MvcInstaller : IInstaller
         
         services.AddSwaggerGen();
         
-        services.AddTransient<JwtHelper>();
-        services.AddTransient<IdentityService>();
         services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+        services.AddTransient<IIdentityService, IdentityService>();
+
+        services.AddTransient<JwtHelper>();
 
         services.AddMediatR(typeof(Program));
 
