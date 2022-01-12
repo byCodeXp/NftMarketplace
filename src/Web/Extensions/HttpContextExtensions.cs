@@ -1,4 +1,7 @@
-﻿namespace Web.Extensions;
+﻿using Application;
+using Domain;
+
+namespace Web.Extensions;
 
 public static class HttpContextExtensions
 {

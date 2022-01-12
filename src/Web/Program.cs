@@ -1,33 +1,14 @@
 using Web.Extensions;
-using Web.Middlewares;
-
-// Add services to the container.
 
 var builder = WebApplication.CreateBuilder(args);
 
-{
-    builder.InstallServicesInAssembly();
-}
-
-// Configure the HTTP request pipeline.
+// Add services to the container.
+builder.InstallServicesInAssembly();
 
 var app = builder.Build();
 
-{
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
-
-    app.UseMiddleware<ErrorsHandlerMiddleware>();
-
-    app.UseHttpsRedirection();
-    app.UseAuthentication();
-    app.UseAuthorization();
-
-    app.MapControllers();
-}
+// Configure the HTTP request pipeline.
+app.ConfigureHttpRequestPipeline();
 
 app.Seed();
 app.Run();
