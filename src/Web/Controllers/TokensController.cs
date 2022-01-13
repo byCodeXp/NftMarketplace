@@ -1,6 +1,6 @@
-﻿using Application;
-using Application.Tokens;
+﻿using Application.Tokens;
 using Application.Tokens.Commands;
+using Application.Tokens.Queries;
 using Domain;
 using Domain.Entities;
 using Mapster;
@@ -21,9 +21,19 @@ public class TokensController : ApiController
         _mediator = mediator;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<ICollection<TokenDto>>> Get()
+    {
+        var query = new GetTokensQuery();
+
+        ICollection<TokenDto> result = await _mediator.Send(query);
+
+        return Ok(result);
+    }
+
     [HttpPost("create")]
     [Authorize(Roles = Env.Roles.User)]
-    public async Task<ActionResult<Token>> Create([FromBody] CreateTokenRequest request)
+    public async Task<ActionResult<TokenDto>> Create([FromBody] CreateTokenRequest request)
     {
         var command = request.Adapt<CreateTokenCommand>();
         

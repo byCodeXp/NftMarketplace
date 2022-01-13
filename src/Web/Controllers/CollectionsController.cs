@@ -1,8 +1,10 @@
 ﻿using Application.Collections;
 using Application.Collections.Commands;
 using Application.Collections.Queries;
+using Domain;
 using Mapster;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Base;
 using Web.Endpoints.Requests;
@@ -19,7 +21,7 @@ public class CollectionsController : ApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<ActionResult<ICollection<CollectionDto>>> Get()
     {
         var query = new GetCollectionsQuery();
         
@@ -29,7 +31,8 @@ public class CollectionsController : ApiController
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody] CreateCollectionRequest request)
+    [Authorize(Roles = Env.Roles.User)]
+    public async Task<ActionResult<CollectionDto>> Create([FromBody] CreateCollectionRequest request)
     {
         var command = request.Adapt<CreateCollectionCommand>();
 
