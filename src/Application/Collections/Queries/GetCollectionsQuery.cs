@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Collections.Queries;
 
-public class GetCollectionsQuery : IRequest<ICollection<CollectionDto>>
+public class GetCollectionsQuery : IRequest<ICollection<CollectionDto>>, BaseRequest
 {
     
 }
@@ -19,7 +19,7 @@ public class GetCollectionsHandler : IRequestHandler<GetCollectionsQuery, IColle
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<ICollection<CollectionDto>> Handle(GetCollectionsQuery request, CancellationToken cancellationToken)
+    public async Task<ICollection<CollectionDto>> Handle(GetCollectionsQuery query, CancellationToken cancellationToken)
     {
         var collections = _unitOfWork
             .CollectionRepository

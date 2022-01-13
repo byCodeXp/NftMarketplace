@@ -5,9 +5,11 @@ using MediatR;
 
 namespace Application.Collections.Commands;
 
-public class CreateCollectionCommand : IRequest<CollectionDto>
+public class CreateCollectionCommand : IRequest<CollectionDto>, BaseRequest
 {
     public string Name { get; set; }
+    public string Description { get; set; }
+    public Guid Collection { get; set; }
 }
 
 public class CreateCollectionHandler : IRequestHandler<CreateCollectionCommand, CollectionDto>

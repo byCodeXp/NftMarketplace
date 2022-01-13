@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Application.Tokens.Commands;
 
-public class CreateTokenCommand : IRequest<TokenDto>
+public class CreateTokenCommand : IRequest<TokenDto>, BaseRequest
 {
     public string Name { get; set; }
     public string Description { get; set; }

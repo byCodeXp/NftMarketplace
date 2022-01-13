@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Application;
+using FluentValidation;
 using Infrastructure;
 using MediatR;
 using Web.Helpers;
@@ -23,7 +24,7 @@ public class MvcInstaller : IInstaller
 
         services.AddTransient<JwtHelper>();
 
-        services.AddMediatR(typeof(Program));
+        services.AddMediatR(typeof(BaseRequest), typeof(IRequestHandler<,>));
 
         services.AddValidatorsFromAssemblyContaining(typeof(Program), ServiceLifetime.Transient);
 

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Tokens.Queries;
 
-public class GetTokensQuery : IRequest<ICollection<TokenDto>>
+public class GetTokensQuery : IRequest<ICollection<TokenDto>>, BaseRequest
 {
     
 }
