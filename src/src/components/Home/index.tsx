@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Card from '../Card';
 
 const Home = () => {
@@ -47,6 +48,25 @@ const Home = () => {
                 <Card></Card>
                 <Card></Card>
                 <Card></Card>
+            </div>
+            <div className='row'>
+                <ul className="pagination col-6 offset-5">
+                    <li className="page-item disabled">
+                        <Link className="page-link" to="/">&laquo;</Link>
+                    </li>
+                    <li className="page-item active">
+                        <Link className="page-link" to="/">1</Link>
+                    </li>
+                    <li className="page-item">
+                        <Link className="page-link" to="/">2</Link>
+                    </li>
+                    <li className="page-item">
+                        <Link className="page-link" to="/">3</Link>
+                    </li>
+                    <li className="page-item disabled">
+                        <Link className="page-link" to="/">&raquo;</Link>
+                    </li>
+                </ul>
             </div>
         </div>
     );

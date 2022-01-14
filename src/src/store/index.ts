@@ -1,7 +1,7 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-
+import accountSlice from '../reducers/account';
 const store = configureStore({
-    reducer: {},
+    reducer: {accountSlice},
 });
 
 export default store;
