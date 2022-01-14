@@ -23,6 +23,20 @@ public class TokensController : ApiController
         _pictureStorage = pictureStorage;
     }
 
+    [HttpGet("page/{page}/perPage/{perPage}")]
+    public async Task<ActionResult<ICollection<TokenDto>>> Get(int page, int perPage)
+    {
+        var query = new GetTokensQuery
+        {
+            Page = page,
+            PerPage = perPage
+        };
+
+        ICollection<TokenDto> result = await _mediator.Send(query);
+
+        return Ok(result);
+    }
+    
     [HttpPost("create")]
     [Authorize(Roles = Env.Roles.User)]
     public async Task<IActionResult> Create([FromBody] CreateTokenRequest request)
@@ -34,17 +48,7 @@ public class TokensController : ApiController
         command.Picture = fileName;
 
         var result = await _mediator.Send(command);
-        
+
         return Created("Token", result);
-    }
-
-    [HttpGet]
-    public async Task<ActionResult<ICollection<TokenDto>>> Get()
-    {
-        var query = new GetTokensQuery();
-
-        ICollection<TokenDto> result = await _mediator.Send(query);
-
-        return Ok(result);
     }
 }
