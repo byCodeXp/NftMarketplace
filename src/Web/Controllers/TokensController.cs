@@ -2,7 +2,7 @@
 using Application.Tokens.Commands;
 using Application.Tokens.Queries;
 using Domain;
-using Domain.Entities;
+using Infrastructure.Storage;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -15,10 +15,27 @@ namespace Web.Controllers;
 public class TokensController : ApiController
 {
     private readonly IMediator _mediator;
+    private readonly IPictureStorage _pictureStorage;
 
-    public TokensController(IMediator mediator)
+    public TokensController(IMediator mediator, IPictureStorage pictureStorage)
     {
         _mediator = mediator;
+        _pictureStorage = pictureStorage;
+    }
+
+    [HttpPost("create")]
+    [Authorize(Roles = Env.Roles.User)]
+    public async Task<IActionResult> Create([FromBody] CreateTokenRequest request)
+    {
+        string fileName = await _pictureStorage.UploadImage(request.File, request.FileName);
+
+        var command = request.Adapt<CreateTokenCommand>();
+
+        command.Picture = fileName;
+
+        var result = await _mediator.Send(command);
+        
+        return Created("Token", result);
     }
 
     [HttpGet]
@@ -29,16 +46,5 @@ public class TokensController : ApiController
         ICollection<TokenDto> result = await _mediator.Send(query);
 
         return Ok(result);
-    }
-
-    [HttpPost("create")]
-    [Authorize(Roles = Env.Roles.User)]
-    public async Task<ActionResult<TokenDto>> Create([FromBody] CreateTokenRequest request)
-    {
-        var command = request.Adapt<CreateTokenCommand>();
-        
-        TokenDto result = await _mediator.Send(command);
-        
-        return Created("Token", result);
     }
 }
