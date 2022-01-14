@@ -3,6 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { loginActionAsync } from '../../reducers/account';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { FormComponent } from '../Form';
+import { Spinner } from '../Spinner';
 
 export const Login = () => {
     let [remember, setRemember] = useState<boolean>();
@@ -42,12 +43,8 @@ export const Login = () => {
                                 className="form-control"
                                 id="inputUserName"
                                 name="userName"
-                                // aria-describedby="emailHelp"
                                 placeholder="Enter username"
                             />
-                            {/* <small id="emailHelp" className="form-text text-muted">
-                            We'll never share your email with anyone else.
-                        </small> */}
                         </div>
                     </div>
                     <div className="col-4 offset-4">
@@ -91,11 +88,7 @@ export const Login = () => {
                             className="btn btn-outline-dark col-12"
                         >
                             {status === 'pending' ? (
-                                <div className="spinner-border" role="status">
-                                    <span className="visually-hidden">
-                                        Loading...
-                                    </span>
-                                </div>
+                                <Spinner></Spinner>
                             ) : (
                                 <span>Login</span>
                             )}

@@ -1,5 +1,5 @@
 import { createSlice, configureStore, createAsyncThunk } from '@reduxjs/toolkit';
-import { accountService, ILoginRequest } from '../api/services/accountService';
+import { accountService, ILoginRequest, IRegisterRequest } from '../api/services/accountService';
 import { tokenUtility } from '../utils/tokenUtility';
 
 
@@ -20,13 +20,23 @@ export const loginActionAsync = createAsyncThunk('loginActionAsync', async (requ
         response = await accountService.loginAsync(request);
     }
     catch(error) {
-        throw new Error("Something went wrong while login");
+        throw new Error("Wrong credentials");
     }
     tokenUtility.setToken(response.data.token);
     return response.data.user;
 });
 
-
+export const registerActionAsync = createAsyncThunk('registerActionAsync', async(request: IRegisterRequest) => {
+    let response;
+    try {
+        response = await accountService.registerAsync(request);
+    }
+    catch(error) {
+        throw new Error("Wrong credentials");
+    }
+    tokenUtility.setToken(response.data.token);
+    return response.data.user;
+})
 
 const accountSlice = createSlice({
     name: 'account',
@@ -37,6 +47,7 @@ const accountSlice = createSlice({
         }
     },
     extraReducers: {
+        // login
         [loginActionAsync.pending.type] : (state, action) => {
             state.status = 'pending';
         },
@@ -44,6 +55,17 @@ const accountSlice = createSlice({
             state.status = 'rejected';
         },
         [loginActionAsync.fulfilled.type] : (state, action) => {
+            state.user = action.payload;
+            state.status = 'fulfilled';
+        },
+        // register
+        [registerActionAsync.pending.type] : (state, action) => {
+            state.status = 'pending';
+        },
+        [registerActionAsync.rejected.type] : (state, action) => {
+            state.status = 'rejected';
+        },
+        [registerActionAsync.fulfilled.type] : (state, action) => {
             state.user = action.payload;
             state.status = 'fulfilled';
         }
