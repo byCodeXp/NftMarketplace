@@ -1,6 +1,8 @@
 ﻿using Application;
+using Domain;
 using FluentValidation;
 using Infrastructure;
+using Infrastructure.Storage;
 using MediatR;
 using Web.Helpers;
 using Web.Installers.Base;
@@ -28,6 +30,15 @@ public class MvcInstaller : IInstaller
 
         services.AddValidatorsFromAssemblyContaining(typeof(Program), ServiceLifetime.Transient);
 
+        
+        if (!Directory.Exists(Env.Storage.Path))
+        {
+            Directory.CreateDirectory(Env.Storage.Path);
+        }
+        
+        services.AddTransient<IPictureStorage, PictureStorage>();
+        
+        
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(policy =>

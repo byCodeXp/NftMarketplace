@@ -1,4 +1,6 @@
-﻿using Web.Middlewares;
+﻿using Domain;
+using Microsoft.Extensions.FileProviders;
+using Web.Middlewares;
 
 namespace Web;
 
@@ -21,5 +23,14 @@ public class HttpRequestPipeline
         app.UseAuthorization();
 
         app.MapControllers();
+        
+        
+        var path = Path.Combine(Directory.GetCurrentDirectory(), Env.Storage.Path);
+        
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(path),
+            RequestPath = "/cdn"
+        });
     }
 }

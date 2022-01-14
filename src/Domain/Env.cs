@@ -21,4 +21,9 @@ public record Env
             public static TimeSpan SevenDays = TimeSpan.FromDays(7);
         }
     }
+
+    public record Storage
+    {
+        public const string Path = "public/pictures";
+    }
 }
