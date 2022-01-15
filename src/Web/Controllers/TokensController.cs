@@ -24,7 +24,7 @@ public class TokensController : ApiController
     }
 
     [HttpGet("page/{page}/perPage/{perPage}")]
-    public async Task<ActionResult<ICollection<TokenDto>>> Get(int page, int perPage)
+    public async Task<ActionResult<TokensVm>> Get(int page, int perPage)
     {
         var query = new GetTokensQuery
         {
@@ -32,7 +32,7 @@ public class TokensController : ApiController
             PerPage = perPage
         };
 
-        ICollection<TokenDto> result = await _mediator.Send(query);
+        TokensVm result = await _mediator.Send(query);
 
         return Ok(result);
     }

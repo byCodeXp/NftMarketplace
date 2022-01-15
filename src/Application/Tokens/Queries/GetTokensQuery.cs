@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Tokens.Queries;
 
-public class GetTokensQuery : IRequest<ICollection<TokenDto>>, BaseRequest
+public class GetTokensQuery : IRequest<TokensVm>, BaseRequest
 {
     public int Page { get; set; }
     public int PerPage { get; set; }
 }
 
-public class GetTokensHandler : IRequestHandler<GetTokensQuery, ICollection<TokenDto>>
+public class GetTokensHandler : IRequestHandler<GetTokensQuery, TokensVm>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -22,17 +22,26 @@ public class GetTokensHandler : IRequestHandler<GetTokensQuery, ICollection<Toke
 
     private int Offset (int page, int perPage) => page <= 1 ? 0 : page * perPage - perPage;
     
-    public async Task<ICollection<TokenDto>> Handle(GetTokensQuery request, CancellationToken cancellationToken)
+    public async Task<TokensVm> Handle(GetTokensQuery request, CancellationToken cancellationToken)
     {
-        int offset = Offset(request.Page, request.PerPage);
-
-        var tokens = _unitOfWork
+        IQueryable<TokenDto> tokens = _unitOfWork
             .TokenRepository
             .GetTokens()
-            .ProjectToType<TokenDto>()
-            .Skip(offset)
-            .Take(request.PerPage);
+            .ProjectToType<TokenDto>();
 
-        return await tokens.ToListAsync(cancellationToken);
+        int totalCount = await tokens.CountAsync(cancellationToken);
+        
+        int offset = Offset(request.Page, request.PerPage);
+        
+        List<TokenDto> selectedTokens = await tokens
+            .Skip(offset)
+            .Take(request.PerPage)
+            .ToListAsync(cancellationToken);
+        
+        return new TokensVm
+        {
+            TotalCount = totalCount,
+            Tokens = selectedTokens
+        };
     }
 }
