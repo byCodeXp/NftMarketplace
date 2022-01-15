@@ -21,7 +21,7 @@ public class MvcInstaller : IInstaller
         services.AddSwaggerGen();
         
         services.AddTransient<IUnitOfWork, UnitOfWork>();
-
+        
         services.AddTransient<IIdentityService, IdentityService>();
 
         services.AddTransient<JwtHelper>();
@@ -29,7 +29,9 @@ public class MvcInstaller : IInstaller
         services.AddMediatR(typeof(BaseRequest), typeof(IRequestHandler<,>));
 
         services.AddValidatorsFromAssemblyContaining(typeof(Program), ServiceLifetime.Transient);
-
+        
+        
+        // Add and setup picture storage
         
         if (!Directory.Exists(Env.Storage.Path))
         {
@@ -37,16 +39,5 @@ public class MvcInstaller : IInstaller
         }
         
         services.AddTransient<IPictureStorage, PictureStorage>();
-        
-        
-        services.AddCors(options =>
-        {
-            options.AddDefaultPolicy(policy =>
-            {
-                policy.AllowAnyMethod();
-                policy.AllowAnyHeader();
-                policy.AllowAnyOrigin();
-            });
-        });
     }
 }
