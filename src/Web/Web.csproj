@@ -27,7 +27,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Public\Pictures" />
+      <None Remove="Public\Pictures\3290ff7e-9c31-4db7-aad2-1e6bf50b2ce5.jpg" />
     </ItemGroup>
 
 </Project>

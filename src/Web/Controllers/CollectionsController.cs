@@ -21,7 +21,7 @@ public class CollectionsController : ApiController
     }
 
     [HttpGet("page/{page}/perPage/{perPage}")]
-    public async Task<ActionResult<ICollection<CollectionDto>>> Get(int page, int perPage)
+    public async Task<ActionResult<CollectionsVm>> Get(int page, int perPage)
     {
         var query = new GetCollectionsQuery
         {
@@ -29,7 +29,7 @@ public class CollectionsController : ApiController
             PerPage = perPage
         };
         
-        ICollection<CollectionDto> result = await _mediator.Send(query);
+        CollectionsVm result = await _mediator.Send(query);
         
         return Ok(result);
     }

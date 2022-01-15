@@ -1,17 +1,18 @@
-﻿using Infrastructure;
+﻿using Domain.Entities;
+using Infrastructure;
 using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Collections.Queries;
 
-public class GetCollectionsQuery : IRequest<ICollection<CollectionDto>>, BaseRequest
+public class GetCollectionsQuery : IRequest<CollectionsVm>, BaseRequest
 {
     public int Page { get; set; }
     public int PerPage { get; set; }
 }
 
-public class GetCollectionsHandler : IRequestHandler<GetCollectionsQuery, ICollection<CollectionDto>>
+public class GetCollectionsHandler : IRequestHandler<GetCollectionsQuery, CollectionsVm>
 {
     private readonly IUnitOfWork _unitOfWork;
 
@@ -22,17 +23,26 @@ public class GetCollectionsHandler : IRequestHandler<GetCollectionsQuery, IColle
 
     private int Offset (int page, int perPage) => page <= 1 ? 0 : page * perPage - perPage;
     
-    public async Task<ICollection<CollectionDto>> Handle(GetCollectionsQuery query, CancellationToken cancellationToken)
+    public async Task<CollectionsVm> Handle(GetCollectionsQuery query, CancellationToken cancellationToken)
     {
-        int offset = Offset(query.Page, query.PerPage);
-
-        var collections = _unitOfWork
+        IQueryable<Collection> collections = _unitOfWork
             .CollectionRepository
-            .GetCollections()
-            .ProjectToType<CollectionDto>()
-            .Skip(offset)
-            .Take(query.PerPage);
+            .GetCollections();
+
+        int totalCount = await collections.CountAsync(cancellationToken);
         
-        return await collections.ToListAsync(cancellationToken);
+        int offset = Offset(query.Page, query.PerPage);
+        
+        List<CollectionDto> selectedCollections = await collections
+            .Skip(offset)
+            .Take(query.PerPage)
+            .ProjectToType<CollectionDto>()
+            .ToListAsync(cancellationToken);
+
+        return new CollectionsVm
+        {
+            TotalCount = totalCount,
+            Collections = selectedCollections
+        };
     }
 }
