@@ -12,6 +12,6 @@ public class DataContext : IdentityDbContext<User, Role, Guid>, IDataContext
     {
     }
 
-    public DbSet<Token> Tokens { get; set; }
-    public DbSet<Collection> Collections { get; set; }
+    public DbSet<TokenEntity> Tokens { get; set; }
+    public DbSet<CollectionEntity> Collections { get; set; }
 }

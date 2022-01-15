@@ -4,20 +4,20 @@ using Infrastructure.Repositories.Base;
 
 namespace Infrastructure.Repositories;
 
-public class CollectionRepository : Repository<Collection>, ICollectionRepository
+public class CollectionRepository : Repository<CollectionEntity>, ICollectionRepository
 {
     public CollectionRepository(IDataContext context)
         : base(context)
     {
     }
 
-    public IQueryable<Collection> GetCollections()
+    public IQueryable<CollectionEntity> GetCollections()
     {
         return Get();
     }
 
-    public Task AddCollection(Collection collection)
+    public Task AddCollection(CollectionEntity collectionEntity)
     {
-        return Add(collection);
+        return Add(collectionEntity);
     }
 }

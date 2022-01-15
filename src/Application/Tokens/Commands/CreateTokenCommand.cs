@@ -23,7 +23,7 @@ public class CreateTokenHandler : IRequestHandler<CreateTokenCommand, TokenDto>
 
     public async Task<TokenDto> Handle(CreateTokenCommand request, CancellationToken cancellationToken)
     {
-        var token = request.Adapt<Token>();
+        var token = request.Adapt<TokenEntity>();
 
         await _unitOfWork.TokenRepository.AddToken(token);
         await _unitOfWork.Completed(cancellationToken);

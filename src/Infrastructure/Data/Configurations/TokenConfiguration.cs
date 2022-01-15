@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Infrastructure.Data.Configurations;
 
-public class TokenConfiguration : EntityConfiguration<Token>
+public class TokenConfiguration : EntityConfiguration<TokenEntity>
 {
-    public override void Configure(EntityTypeBuilder<Token> builder)
+    public override void Configure(EntityTypeBuilder<TokenEntity> builder)
     {
         base.Configure(builder);
 
@@ -15,7 +15,7 @@ public class TokenConfiguration : EntityConfiguration<Token>
             .WithMany(user => user.Tokens);
 
         builder
-            .HasOne(token => token.Collection)
+            .HasOne(token => token.CollectionEntity)
             .WithMany(collection => collection.Tokens);
     }
 }

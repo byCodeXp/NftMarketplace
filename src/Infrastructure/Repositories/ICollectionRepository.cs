@@ -4,6 +4,6 @@ namespace Infrastructure.Repositories;
 
 public interface ICollectionRepository
 {
-    IQueryable<Collection> GetCollections();
-    Task AddCollection(Collection collection);
+    IQueryable<CollectionEntity> GetCollections();
+    Task AddCollection(CollectionEntity collectionEntity);
 }

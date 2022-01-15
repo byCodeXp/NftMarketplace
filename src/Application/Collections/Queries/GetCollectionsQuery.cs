@@ -25,7 +25,7 @@ public class GetCollectionsHandler : IRequestHandler<GetCollectionsQuery, Collec
     
     public async Task<CollectionsVm> Handle(GetCollectionsQuery query, CancellationToken cancellationToken)
     {
-        IQueryable<Collection> collections = _unitOfWork
+        IQueryable<CollectionEntity> collections = _unitOfWork
             .CollectionRepository
             .GetCollections();
 

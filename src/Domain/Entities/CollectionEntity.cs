@@ -3,7 +3,7 @@ using Domain.Entities.Identity;
 
 namespace Domain.Entities;
 
-public record Collection : Entity
+public record CollectionEntity : Entity
 {
     public string Name { get; set; }
 
@@ -15,5 +15,5 @@ public record Collection : Entity
     /// <summary>
     /// Navigation property: tokens which has current collection
     /// </summary>
-    public ICollection<Token> Tokens { get; set; }
+    public ICollection<TokenEntity> Tokens { get; set; }
 }

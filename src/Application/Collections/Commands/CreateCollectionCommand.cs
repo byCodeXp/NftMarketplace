@@ -23,7 +23,7 @@ public class CreateCollectionHandler : IRequestHandler<CreateCollectionCommand, 
 
     public async Task<CollectionDto> Handle(CreateCollectionCommand request, CancellationToken cancellationToken)
     {
-        var collection = new Collection
+        var collection = new CollectionEntity
         {
             Name = request.Name
         };

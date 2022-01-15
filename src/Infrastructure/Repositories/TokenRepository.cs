@@ -4,20 +4,20 @@ using Infrastructure.Repositories.Base;
 
 namespace Infrastructure.Repositories;
 
-public class TokenRepository : Repository<Token>, ITokenRepository
+public class TokenRepository : Repository<TokenEntity>, ITokenRepository
 {
     public TokenRepository(IDataContext context)
         : base(context)
     {
     }
     
-    public IQueryable<Token> GetTokens()
+    public IQueryable<TokenEntity> GetTokens()
     {
         return Get();
     }
 
-    public Task AddToken(Token token)
+    public Task AddToken(TokenEntity tokenEntity)
     {
-        return Add(token);
+        return Add(tokenEntity);
     }
 }

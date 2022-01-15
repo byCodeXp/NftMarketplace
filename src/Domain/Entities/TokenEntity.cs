@@ -3,7 +3,7 @@ using Domain.Entities.Identity;
 
 namespace Domain.Entities;
 
-public record Token : Entity
+public record TokenEntity : Entity
 {
     public string Name { get; set; }
     public string Picture { get; set; }
@@ -12,7 +12,7 @@ public record Token : Entity
     /// <summary>
     /// Navigation property: Collection which owned current token.
     /// </summary>
-    public Collection Collection { get; set; }
+    public CollectionEntity CollectionEntity { get; set; }
     
     /// <summary>
     /// Navigation property: Author - user who create current token
