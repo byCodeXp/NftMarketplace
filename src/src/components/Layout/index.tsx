@@ -8,7 +8,7 @@ export const Layout = () => {
         <div className="yellow">
         <div className="container d-flex flex-column min-vh-100">
             <Navbar></Navbar>
-            <Outlet/>
+            <Outlet />
             <Footer></Footer>
         </div>
         </div>

@@ -11,7 +11,7 @@ export const Navbar = () => {
       tokenUtility.clearToken();
     }
     return (
-        <nav className="navbar navbar-expand-lg neon-blue">
+        <nav className="navbar navbar-expand-lg neon-blue mb-5">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">
                     NFT
@@ -27,9 +27,19 @@ export const Navbar = () => {
                     </ul>
                 </div>
                 {user ? (
+                    <div>
+                        <Link to="/collection/create" className="me-2">
+                          <button className="btn btn-secondary align-self-end">
+                            + Create collection
+                        </button>
+                        </Link>
                         <button className="btn btn-secondary align-self-end" onClick={onLogout}>
                             Logout
                         </button>
+                        <Link to="/account">
+                            <i className="far fa-user-circle fa-2x align-middle"></i>
+                        </Link>
+                    </div>
                 ) : (
                     <div>
                         <Link to="/login" className="me-2">

@@ -15,7 +15,6 @@ export const Login = () => {
 
     const onClickHandle = (data: any) => {
         data.remember = remember;
-        console.log(data);
         dispatch(loginActionAsync(data));
     };
 

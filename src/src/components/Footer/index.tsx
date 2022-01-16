@@ -107,10 +107,8 @@ export const Footer = () => {
                 </div>
             </section>
 
-            <div
-                className="text-center p-4"
-            >
-                © 2021 Copyright:
+            <div className="text-center p-4">
+                © 2022 Copyright:
                 <a className="text-reset fw-bold" href="https://mdbootstrap.com/">
                     NFT.ITStep.com
                 </a>

@@ -1,5 +1,5 @@
 /// <reference types="react-scripts" />
 interface IUser {
-    username: string;
+    userName: string;
     password: string;
 }
