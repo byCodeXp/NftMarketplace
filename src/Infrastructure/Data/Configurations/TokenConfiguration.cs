@@ -15,7 +15,7 @@ public class TokenConfiguration : EntityConfiguration<TokenEntity>
             .WithMany(user => user.Tokens);
 
         builder
-            .HasOne(token => token.CollectionEntity)
+            .HasOne(token => token.Collection)
             .WithMany(collection => collection.Tokens);
     }
 }

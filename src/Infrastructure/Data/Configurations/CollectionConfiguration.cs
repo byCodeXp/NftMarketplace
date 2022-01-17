@@ -16,6 +16,6 @@ public class CollectionConfiguration : EntityConfiguration<CollectionEntity>
 
         builder
             .HasMany(collection => collection.Tokens)
-            .WithOne(token => token.CollectionEntity);
+            .WithOne(token => token.Collection);
     }
 }

@@ -12,7 +12,7 @@ public record TokenEntity : Entity
     /// <summary>
     /// Navigation property: Collection which owned current token.
     /// </summary>
-    public CollectionEntity CollectionEntity { get; set; }
+    public CollectionEntity Collection { get; set; }
     
     /// <summary>
     /// Navigation property: Author - user who create current token
