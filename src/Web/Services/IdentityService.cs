@@ -1,11 +1,10 @@
-﻿using Application;
+﻿using Application.Exceptions;
 using Domain;
 using Domain.Entities.Identity;
 using Mapster;
 using Microsoft.AspNetCore.Identity;
 using Web.Endpoints.Requests;
 using Web.Endpoints.Responses;
-using Web.Exceptions;
 using Web.Helpers;
 using Web.Models;
 
@@ -30,7 +29,7 @@ public class IdentityService : IIdentityService
 
         if (!createNewUserResult .Succeeded)
         {
-            throw new BadRequestRestException("Invalid credentials");
+            throw new BadRequestException("Invalid credentials");
         }
 
         await _userManager.AddToRoleAsync(user, Env.Roles.User);
@@ -44,14 +43,14 @@ public class IdentityService : IIdentityService
         
         if (user is null)
         {
-            throw new BadRequestRestException("Invalid credentials");
+            throw new BadRequestException("Invalid credentials");
         }
         
         bool passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
         
         if (!passwordValid)
         {
-            throw new BadRequestRestException("Invalid credentials");
+            throw new BadRequestException("Invalid credentials");
         }
         
         TimeSpan tokenDuration = Env.Identity.TokenExpirationTime.OneDay;
@@ -70,7 +69,7 @@ public class IdentityService : IIdentityService
 
         if (user is null)
         {
-            throw new BadRequestRestException("User was not found");
+            throw new BadRequestException("User was not found");
         }
 
         return user.Adapt<UserVm>();

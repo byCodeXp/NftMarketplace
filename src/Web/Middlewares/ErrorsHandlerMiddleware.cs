@@ -1,6 +1,6 @@
 ﻿using System.Net;
+using Application.Exceptions;
 using Web.Endpoints.Responses;
-using Web.Exceptions;
 
 namespace Web.Middlewares;
 
@@ -30,7 +30,7 @@ public class ErrorsHandlerMiddleware
                 
             switch (exception)
             {
-                case BadRequestRestException:
+                case BadRequestException:
                     response.StatusCode = (int) HttpStatusCode.BadRequest;
                     message = exception.Message;
                     break;
