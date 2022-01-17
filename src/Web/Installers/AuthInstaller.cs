@@ -1,17 +1,18 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Web.Attributes;
 using Web.Installers.Base;
 
 namespace Web.Installers;
 
+[InstallerOrder(1)]
 public class AuthInstaller : IInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
         services.AddAuthentication(options =>
         {
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
