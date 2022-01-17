@@ -6,6 +6,7 @@ namespace Domain.Entities;
 public record CollectionEntity : Entity
 {
     public string Name { get; set; }
+    public string Cover { get; set; }
 
     /// <summary>
     /// Navigation property: Author - user who create this collection
