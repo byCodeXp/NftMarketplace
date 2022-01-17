@@ -21,7 +21,7 @@ const Home = () => {
                         aria-haspopup="true"
                         aria-expanded="false"
                     >
-                        Dropdown
+                        Filter
                     </a>
                     <div className="dropdown-menu">
                         <a className="dropdown-item" href="#">

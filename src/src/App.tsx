@@ -5,6 +5,7 @@ import { CreateCollection } from './components/CreateCollection';
 import Home from './components/Home';
 import { Layout } from './components/Layout';
 import { Login } from './components/Login';
+import { NotFound } from './components/NotFound';
 import { Register } from './components/Register';
 import { useAppSelector } from './store/hooks';
 
@@ -23,6 +24,7 @@ export const App = () => {
                     <Route path="/about" element={<About/>}></Route>
                     <Route path="/collection/create" element={<CreateCollection/>}></Route>
                     <Route path="/account" element={<AccountInfo/>}></Route>
+                    <Route path="*" element={<NotFound/>}></Route>
                 </Route>
             </Routes>
         </>
