@@ -4,7 +4,6 @@ using Infrastructure;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Collections.Queries;
 
@@ -32,13 +31,11 @@ public class GetAuthorCollectionsHandler : IRequestHandler<GetAuthorCollectionsQ
         {
             throw new BadRequestException("User does not exists");
         }
-        
-        ICollection<CollectionDto> collections = await _unitOfWork
-            .CollectionRepository.GetCollections()
-            .Where(collection => collection.Author.Id == user.Id)
-            .ProjectToType<CollectionDto>()
-            .ToListAsync(cancellationToken);
 
+        _unitOfWork.Include(user, entity => entity.Collections);
+        
+        var collections = user.Collections.Adapt<ICollection<CollectionDto>>();
+        
         return collections;
     }
 }

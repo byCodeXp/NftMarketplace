@@ -1,9 +1,7 @@
-﻿using Application.Collections;
-using Application.Exceptions;
+﻿using Application.Exceptions;
 using Infrastructure;
 using Mapster;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Tokens.Queries;
 
@@ -33,18 +31,14 @@ public class GetCollectionTokensHandler : IRequestHandler<GetCollectionTokensQue
         {
             throw new BadRequestException("Collection does not exists");
         }
-
-        var tokens = _unitOfWork
-            .TokenRepository.GetTokens()
-            .Where(entity => entity.Collection.Id == collection.Id)
-            .ProjectToType<TokenDto>();
-
-        int totalCount = tokens.Count();
         
+        _unitOfWork.Include(collection, entity => entity.Tokens);
+        var tokens = collection.Tokens.Adapt<ICollection<TokenDto>>();
+        
+        int totalCount = tokens.Count;
         
         int offset = Offset(request.Page, request.PerPage);
-        
-        var selectedTokens = await tokens.Skip(offset).Take(request.PerPage).ToListAsync(cancellationToken);
+        var selectedTokens = tokens.Skip(offset).Take(request.PerPage).ToList();
         
         return new TokensVm
         {
