@@ -8,10 +8,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Application.Collections.Commands;
 
-public class CreateCollectionCommand : IRequest<CollectionDto>, BaseRequest
+public record CreateCollectionCommand : IRequest<CollectionDto>, BaseRequest
 {
     public string Name { get; set; }
     public string Description { get; set; }
+    public string Cover { get; set; }
+    
     public Guid Author { get; set; }
 }
 
