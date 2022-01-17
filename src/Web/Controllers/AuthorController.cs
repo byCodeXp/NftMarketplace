@@ -1,13 +1,9 @@
 ﻿using Application.Collections;
-using Application.Exceptions;
+using Application.Collections.Queries;
 using Domain;
-using Domain.Entities.Identity;
-using Infrastructure;
-using Mapster;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Web.Controllers.Base;
 using Web.Extensions;
 
@@ -15,13 +11,11 @@ namespace Web.Controllers;
 
 public class AuthorController : ApiController
 {
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<User> _userManager;
+    private readonly IMediator _mediator;
 
-    public AuthorController(IUnitOfWork unitOfWork, UserManager<User> userManager)
+    public AuthorController(IMediator mediator)
     {
-        _unitOfWork = unitOfWork;
-        _userManager = userManager;
+        _mediator = mediator;
     }
 
     [HttpGet("{authorId}/collections")]
@@ -29,20 +23,11 @@ public class AuthorController : ApiController
     public async Task<ActionResult<ICollection<CollectionDto>>> GetCollections()
     {
         string userId = HttpContext.GetUserIdFromClaims();
+        
+        var query = new GetAuthorCollectionsQuery { Author = userId };
 
-        User user = await _userManager.FindByIdAsync(userId);
-
-        if (user is null)
-        {
-            throw new BadRequestException("User does not exists");
-        }
-
-        ICollection<CollectionDto> collections = await _unitOfWork
-            .CollectionRepository.GetCollections()
-            .Where(collection => collection.Author.Id == user.Id)
-            .ProjectToType<CollectionDto>()
-            .ToListAsync();
-
-        return Ok(collections);
+        ICollection<CollectionDto> result = await _mediator.Send(query);
+        
+        return Ok(result);
     }
 }
