@@ -1,6 +1,8 @@
 ﻿using Application.Collections;
 using Application.Collections.Commands;
 using Application.Collections.Queries;
+using Application.Tokens;
+using Application.Tokens.Queries;
 using Domain;
 using Mapster;
 using MediatR;
@@ -31,6 +33,21 @@ public class CollectionsController : ApiController
         
         CollectionsVm result = await _mediator.Send(query);
         
+        return Ok(result);
+    }
+
+    [HttpGet("{collectionId}/tokens/page/{page}/perPage/{perPage}")]
+    public async Task<ActionResult<TokensVm>> Get(Guid collectionId, int page, int perPage)
+    {
+        var query = new GetCollectionTokensQuery
+        {
+            CollectionId = collectionId,
+            Page = page,
+            PerPage = perPage
+        };
+
+        TokensVm result = await _mediator.Send(query);
+
         return Ok(result);
     }
 
