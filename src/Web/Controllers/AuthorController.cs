@@ -1,11 +1,8 @@
 ﻿using Application.Features.Collections;
 using Application.Features.Collections.Queries;
-using Domain;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Base;
-using Web.Extensions;
 
 namespace Web.Controllers;
 
@@ -19,12 +16,12 @@ public class AuthorController : ApiController
     }
 
     [HttpGet("{authorId}/collections")]
-    [Authorize(Roles = Env.Roles.User)]
-    public async Task<ActionResult<ICollection<CollectionDto>>> GetCollections()
+    public async Task<ActionResult<ICollection<CollectionDto>>> GetCollections(string authorId)
     {
-        string userId = HttpContext.GetUserIdFromClaims();
-        
-        var query = new GetAuthorCollectionsQuery { Author = userId };
+        var query = new GetAuthorCollectionsQuery
+        {
+            Author = authorId
+        };
 
         ICollection<CollectionDto> result = await _mediator.Send(query);
         
