@@ -1,14 +1,14 @@
 ﻿using System.Reflection;
-using Web.Attributes;
-using Web.Installers.Base;
+using Installers.Attributes;
+using Microsoft.AspNetCore.Builder;
 
-namespace Web.Extensions;
+namespace Installers.Extensions;
 
 public static class WebApplicationBuilderExtensions
 {
-    public static void InstallServicesInAssembly(this WebApplicationBuilder builder)
+    public static void InstallServicesInAssembly(this WebApplicationBuilder builder, Type type)
     {
-        var installers = typeof(Program).Assembly.ExportedTypes
+        var installers = type.Assembly.ExportedTypes
             .Where(x => typeof(IInstaller).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
             .OrderBy(x => x.GetCustomAttribute<InstallerOrderAttribute>()?.Order ?? 0)
             .Select(Activator.CreateInstance).Cast<IInstaller>().ToList();

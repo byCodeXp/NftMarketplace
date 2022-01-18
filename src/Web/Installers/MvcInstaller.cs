@@ -3,9 +3,9 @@ using Domain;
 using FluentValidation;
 using Infrastructure;
 using Infrastructure.Storage;
+using Installers;
 using MediatR;
 using Web.Helpers;
-using Web.Installers.Base;
 using Web.Services;
 
 namespace Web.Installers;

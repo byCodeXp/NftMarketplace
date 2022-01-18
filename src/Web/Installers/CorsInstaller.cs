@@ -1,4 +1,4 @@
-﻿using Web.Installers.Base;
+﻿using Installers;
 
 namespace Web.Installers;
 

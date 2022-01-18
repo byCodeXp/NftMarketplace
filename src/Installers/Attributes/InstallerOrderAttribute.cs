@@ -1,4 +1,4 @@
-﻿namespace Web.Attributes;
+﻿namespace Installers.Attributes;
 
 public class InstallerOrderAttribute : Attribute
 {

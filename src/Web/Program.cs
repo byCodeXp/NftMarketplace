@@ -1,9 +1,11 @@
+using Installers.Extensions;
 using Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.InstallServicesInAssembly();
+
+builder.InstallServicesInAssembly(typeof(Program));
 
 var app = builder.Build();
 

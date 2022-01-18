@@ -1,8 +1,8 @@
 ﻿using System.Text;
+using Installers;
+using Installers.Attributes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Web.Attributes;
-using Web.Installers.Base;
 
 namespace Web.Installers;
 
