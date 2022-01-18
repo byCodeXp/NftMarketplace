@@ -11,18 +11,21 @@ public class AuthInstaller : IInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
+        byte[] secret = Encoding.ASCII.GetBytes(configuration["Jwt:Secret"]);
+        var signingKey = new SymmetricSecurityKey(secret);
+
+        services.AddTransient(provider => signingKey);
+        
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-            byte[] secret = Encoding.ASCII.GetBytes(configuration["Jwt:Secret"]);
-                
             options.SaveToken = true;
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                IssuerSigningKey = new SymmetricSecurityKey(secret),
+                IssuerSigningKey = signingKey,
                 ValidateIssuerSigningKey = true,
                 ValidateIssuer = false,
                 ValidateAudience = false,

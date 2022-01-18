@@ -1,6 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 using Domain;
 using Microsoft.IdentityModel.Tokens;
 
@@ -15,13 +14,8 @@ public class JwtHelper
 
     private readonly SigningCredentials _signingCredentials;
 
-    public JwtHelper(IConfiguration configuration)
+    public JwtHelper(SymmetricSecurityKey securityKey)
     {
-        string secretText = configuration["Jwt:Secret"];
-        byte[] secret = Encoding.ASCII.GetBytes(secretText);
-
-        var securityKey = new SymmetricSecurityKey(secret);
-
         _signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithm);
     }
 
