@@ -36,15 +36,14 @@ public class CreateCollectionHandler : IRequestHandler<CreateCollectionCommand, 
 
         if (author is null)
         {
-            throw new BadRequestException("User doesn't exists");
+            throw new BadRequestException("User does not exists");
         }
-        
-        var collection = new CollectionEntity
+
+        var collection = request.Adapt<CollectionEntity>() with
         {
-            Name = request.Name,
             Author = author
         };
-
+        
         await _unitOfWork.CollectionRepository.AddCollection(collection);
         await _unitOfWork.Completed(cancellationToken);
 

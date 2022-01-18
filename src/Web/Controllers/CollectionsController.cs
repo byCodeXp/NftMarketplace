@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Base;
 using Web.Endpoints.Requests;
+using Web.Extensions;
 
 namespace Web.Controllers;
 
@@ -57,13 +58,16 @@ public class CollectionsController : ApiController
     [Authorize(Roles = Env.Roles.User)]
     public async Task<ActionResult<CollectionDto>> Create([FromBody] CreateCollectionRequest request)
     {
+        string userId = HttpContext.GetUserIdFromClaims();
+        
         IStorage storage = new CollectionPictureStorage();
 
         string fileName = await storage.SavePicture(request.File, request.FileName);
         
         var command = request.Adapt<CreateCollectionCommand>() with
         {
-            Cover = fileName
+            Cover = fileName,
+            Author = Guid.Parse(userId)
         };
 
         CollectionDto collection = await _mediator.Send(command);
