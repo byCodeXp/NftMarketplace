@@ -24,6 +24,7 @@ public record Env
 
     public record Storage
     {
-        public const string Path = "public/pictures";
+        public const string TokenPicturePath = "public/pictures/tokens";
+        public const string CollectionPicturePath = "public/pictures/collections";
     }
 }

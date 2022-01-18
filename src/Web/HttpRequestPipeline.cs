@@ -25,12 +25,31 @@ public class HttpRequestPipeline
         app.MapControllers();
         
         
-        var path = Path.Combine(Directory.GetCurrentDirectory(), Env.Storage.Path);
+        // Setup storage
+        
+        if (!Directory.Exists(Env.Storage.TokenPicturePath))
+        {
+            Directory.CreateDirectory(Env.Storage.TokenPicturePath);
+        }
+        
+        if (!Directory.Exists(Env.Storage.CollectionPicturePath))
+        {
+            Directory.CreateDirectory(Env.Storage.CollectionPicturePath);
+        }
+
+        string collectionPicturesPath = Path.Combine(Directory.GetCurrentDirectory(), Env.Storage.CollectionPicturePath);
+        string tokenPicturesPath = Path.Combine(Directory.GetCurrentDirectory(), Env.Storage.TokenPicturePath);
         
         app.UseStaticFiles(new StaticFileOptions
         {
-            FileProvider = new PhysicalFileProvider(path),
-            RequestPath = "/cdn"
+            FileProvider = new PhysicalFileProvider(tokenPicturesPath),
+            RequestPath = "/cdn/tokens/pictures"
+        });
+        
+        app.UseStaticFiles(new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(collectionPicturesPath),
+            RequestPath = "/cdn/collections/pictures"
         });
     }
 }

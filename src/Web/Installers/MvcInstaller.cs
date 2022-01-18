@@ -1,8 +1,6 @@
 ﻿using Application;
-using Domain;
 using FluentValidation;
 using Infrastructure;
-using Infrastructure.Storage;
 using Installers;
 using MediatR;
 using Web.Helpers;
@@ -29,15 +27,5 @@ public class MvcInstaller : IInstaller
         services.AddMediatR(typeof(BaseRequest), typeof(IRequestHandler<,>));
 
         services.AddValidatorsFromAssemblyContaining(typeof(Program), ServiceLifetime.Transient);
-        
-        
-        // Add and setup picture storage
-        
-        if (!Directory.Exists(Env.Storage.Path))
-        {
-            Directory.CreateDirectory(Env.Storage.Path);
-        }
-        
-        services.AddTransient<IPictureStorage, PictureStorage>();
     }
 }

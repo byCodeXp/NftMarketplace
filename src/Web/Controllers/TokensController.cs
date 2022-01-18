@@ -3,6 +3,7 @@ using Application.Features.Tokens.Commands;
 using Application.Features.Tokens.Queries;
 using Domain;
 using Infrastructure.Storage;
+using Infrastructure.Storage.Base;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -15,12 +16,10 @@ namespace Web.Controllers;
 public class TokensController : ApiController
 {
     private readonly IMediator _mediator;
-    private readonly IPictureStorage _pictureStorage;
 
-    public TokensController(IMediator mediator, IPictureStorage pictureStorage)
+    public TokensController(IMediator mediator)
     {
         _mediator = mediator;
-        _pictureStorage = pictureStorage;
     }
 
     [HttpGet("page/{page}/perPage/{perPage}")]
@@ -41,14 +40,17 @@ public class TokensController : ApiController
     [Authorize(Roles = Env.Roles.User)]
     public async Task<IActionResult> Create([FromBody] CreateTokenRequest request)
     {
-        string fileName = await _pictureStorage.UploadImage(request.File, request.FileName);
+        IStorage storage = new TokenPictureStorage();
 
-        var command = request.Adapt<CreateTokenCommand>();
+        string fileName = await storage.SavePicture(request.File, request.FileName);
 
-        command.Picture = fileName;
+        var command = request.Adapt<CreateTokenCommand>() with
+        {
+            Picture = fileName
+        };
 
-        var result = await _mediator.Send(command);
+        TokenDto token = await _mediator.Send(command);
 
-        return Created("Token", result);
+        return Created("Token", token);
     }
 }

@@ -5,6 +5,7 @@ using Application.Features.Tokens;
 using Application.Features.Tokens.Queries;
 using Domain;
 using Infrastructure.Storage;
+using Infrastructure.Storage.Base;
 using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -17,12 +18,10 @@ namespace Web.Controllers;
 public class CollectionsController : ApiController
 {
     private readonly IMediator _mediator;
-    private readonly IPictureStorage _pictureStorage;
 
-    public CollectionsController(IMediator mediator, IPictureStorage pictureStorage)
+    public CollectionsController(IMediator mediator)
     {
         _mediator = mediator;
-        _pictureStorage = pictureStorage;
     }
 
     [HttpGet("page/{page}/perPage/{perPage}")]
@@ -58,15 +57,17 @@ public class CollectionsController : ApiController
     [Authorize(Roles = Env.Roles.User)]
     public async Task<ActionResult<CollectionDto>> Create([FromBody] CreateCollectionRequest request)
     {
-        string fileName = await _pictureStorage.UploadImage(request.File, request.FileName);
+        IStorage storage = new CollectionPictureStorage();
+
+        string fileName = await storage.SavePicture(request.File, request.FileName);
         
         var command = request.Adapt<CreateCollectionCommand>() with
         {
             Cover = fileName
         };
 
-        CollectionDto result = await _mediator.Send(command);
+        CollectionDto collection = await _mediator.Send(command);
         
-        return Created("Collection", result);
+        return Created("Collection", collection);
     }
 }

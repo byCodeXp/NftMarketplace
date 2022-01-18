@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Application.Features.Tokens.Commands;
 
-public class CreateTokenCommand : IRequest<TokenDto>, BaseRequest
+public record CreateTokenCommand : IRequest<TokenDto>, BaseRequest
 {
     public string Name { get; set; }
     public string Description { get; set; }
