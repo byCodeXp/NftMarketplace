@@ -1,8 +1,8 @@
-﻿using Application.Collections;
-using Application.Collections.Commands;
-using Application.Collections.Queries;
-using Application.Tokens;
-using Application.Tokens.Queries;
+﻿using Application.Features.Collections;
+using Application.Features.Collections.Commands;
+using Application.Features.Collections.Queries;
+using Application.Features.Tokens;
+using Application.Features.Tokens.Queries;
 using Domain;
 using Infrastructure.Storage;
 using Mapster;

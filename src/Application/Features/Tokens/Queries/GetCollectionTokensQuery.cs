@@ -3,7 +3,7 @@ using Infrastructure;
 using Mapster;
 using MediatR;
 
-namespace Application.Tokens.Queries;
+namespace Application.Features.Tokens.Queries;
 
 public record GetCollectionTokensQuery : IRequest<TokensVm>, BaseRequest
 {

@@ -1,6 +1,6 @@
-﻿using Application.Tokens;
-using Application.Tokens.Commands;
-using Application.Tokens.Queries;
+﻿using Application.Features.Tokens;
+using Application.Features.Tokens.Commands;
+using Application.Features.Tokens.Queries;
 using Domain;
 using Infrastructure.Storage;
 using Mapster;

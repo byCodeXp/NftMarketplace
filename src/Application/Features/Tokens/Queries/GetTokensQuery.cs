@@ -3,7 +3,7 @@ using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Tokens.Queries;
+namespace Application.Features.Tokens.Queries;
 
 public class GetTokensQuery : IRequest<TokensVm>, BaseRequest
 {

@@ -1,4 +1,4 @@
-﻿namespace Application.Tokens;
+﻿namespace Application.Features.Tokens;
 
 public class TokensVm
 {

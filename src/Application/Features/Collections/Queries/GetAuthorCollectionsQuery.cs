@@ -5,7 +5,7 @@ using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.Collections.Queries;
+namespace Application.Features.Collections.Queries;
 
 public record GetAuthorCollectionsQuery : IRequest<ICollection<CollectionDto>>, BaseRequest
 {

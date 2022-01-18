@@ -6,7 +6,7 @@ using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.Collections.Commands;
+namespace Application.Features.Collections.Commands;
 
 public record CreateCollectionCommand : IRequest<CollectionDto>, BaseRequest
 {

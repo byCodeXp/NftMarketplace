@@ -1,5 +1,5 @@
-﻿using Application.Collections;
-using Application.Collections.Queries;
+﻿using Application.Features.Collections;
+using Application.Features.Collections.Queries;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;

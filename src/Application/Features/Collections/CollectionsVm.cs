@@ -1,4 +1,4 @@
-﻿namespace Application.Collections;
+﻿namespace Application.Features.Collections;
 
 public record CollectionsVm
 {

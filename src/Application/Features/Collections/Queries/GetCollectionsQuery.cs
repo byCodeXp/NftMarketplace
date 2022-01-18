@@ -4,7 +4,7 @@ using Mapster;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Collections.Queries;
+namespace Application.Features.Collections.Queries;
 
 public class GetCollectionsQuery : IRequest<CollectionsVm>, BaseRequest
 {

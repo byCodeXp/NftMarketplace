@@ -6,7 +6,7 @@ using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace Application.Tokens.Commands;
+namespace Application.Features.Tokens.Commands;
 
 public class CreateTokenCommand : IRequest<TokenDto>, BaseRequest
 {
