@@ -1,4 +1,4 @@
-﻿using Application.Exceptions;
+﻿using Domain.Exceptions;
 using Infrastructure;
 using Mapster;
 using MediatR;

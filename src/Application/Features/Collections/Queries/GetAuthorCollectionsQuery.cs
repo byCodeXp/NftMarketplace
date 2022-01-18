@@ -1,5 +1,5 @@
-﻿using Application.Exceptions;
-using Domain.Entities.Identity;
+﻿using Domain.Entities.Identity;
+using Domain.Exceptions;
 using Infrastructure;
 using Mapster;
 using MediatR;

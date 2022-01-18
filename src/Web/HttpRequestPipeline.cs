@@ -1,6 +1,6 @@
 ﻿using Domain;
 using Microsoft.Extensions.FileProviders;
-using Web.Middlewares;
+using Web.Middlewares.ExceptionsHandlerMiddleware.Extensions;
 
 namespace Web;
 
@@ -14,7 +14,7 @@ public class HttpRequestPipeline
             app.UseSwaggerUI();
         }
 
-        app.UseMiddleware<ErrorsHandlerMiddleware>();
+        app.UseExceptionsHandler();
 
         app.UseCors();
         

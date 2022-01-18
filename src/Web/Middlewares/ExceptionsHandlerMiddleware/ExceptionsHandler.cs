@@ -1,15 +1,15 @@
 ﻿using System.Net;
-using Application.Exceptions;
-using Web.Endpoints.Responses;
+using Domain.Exceptions;
+using Web.Middlewares.ExceptionsHandlerMiddleware.Models;
 
-namespace Web.Middlewares;
+namespace Web.Middlewares.ExceptionsHandlerMiddleware;
 
-public class ErrorsHandlerMiddleware
+public class ExceptionsHandler
 {
     private readonly RequestDelegate _next;
-    private readonly ILogger<ErrorsHandlerMiddleware> _logger;
+    private readonly ILogger<ExceptionsHandler> _logger;
 
-    public ErrorsHandlerMiddleware(RequestDelegate next, ILogger<ErrorsHandlerMiddleware> logger)
+    public ExceptionsHandler(RequestDelegate next, ILogger<ExceptionsHandler> logger)
     {
         _next = next;
         _logger = logger;
@@ -23,7 +23,7 @@ public class ErrorsHandlerMiddleware
         }
         catch (Exception exception)
         {
-            string message = null;
+            string message = exception.Message;
                 
             HttpResponse response = context.Response;
             response.ContentType = "application/json";
@@ -32,7 +32,6 @@ public class ErrorsHandlerMiddleware
             {
                 case BadRequestException:
                     response.StatusCode = (int) HttpStatusCode.BadRequest;
-                    message = exception.Message;
                     break;
                 default:
                     response.StatusCode = (int) HttpStatusCode.InternalServerError;
@@ -40,13 +39,13 @@ public class ErrorsHandlerMiddleware
                     break;
             }
 
-            _logger.LogError(exception.ToString());
-
-            await response.WriteAsync(new FailedResponse
+            await response.WriteAsync(new ErrorDetails
             {
-                Code = response.StatusCode,
-                Message = message
-            }.ToString());
+                Message = message,
+                Code = response.StatusCode
+            }.ToJson());
+            
+            _logger.LogError(exception.ToString());
         }
     }
 }
