@@ -1,6 +1,5 @@
 ﻿using Installers;
 using Microsoft.OpenApi.Models;
-using Web.Swagger;
 
 namespace Web.Installers;
 
@@ -40,8 +39,6 @@ public class SwaggerInstaller : IInstaller
             options.IncludeXmlComments(filePath);
             
             options.DescribeAllParametersInCamelCase();
-            
-            options.SchemaFilter<EnumSchemaFilter>();
         });
     }
 }

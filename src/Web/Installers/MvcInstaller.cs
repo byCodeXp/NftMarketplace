@@ -1,9 +1,9 @@
-﻿using Application;
+﻿using System.Text.Json.Serialization;
+using Application;
 using FluentValidation;
 using Infrastructure;
 using Installers;
 using MediatR;
-using Microsoft.OpenApi.Models;
 using Web.Helpers;
 using Web.Services;
 
@@ -13,11 +13,14 @@ public class MvcInstaller : IInstaller
 {
     public void Install(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddControllers();
-        
+        services.AddControllers()
+            
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
         services.AddEndpointsApiExplorer();
-        
-        
         
         services.AddTransient<IUnitOfWork, UnitOfWork>();
         
