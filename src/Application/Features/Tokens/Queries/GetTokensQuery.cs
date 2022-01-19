@@ -20,8 +20,6 @@ public class GetTokensHandler : IRequestHandler<GetTokensQuery, TokensVm>
         _unitOfWork = unitOfWork;
     }
 
-    private int Offset (int page, int perPage) => page <= 1 ? 0 : page * perPage - perPage;
-    
     public async Task<TokensVm> Handle(GetTokensQuery request, CancellationToken cancellationToken)
     {
         IQueryable<TokenDto> tokens = _unitOfWork
@@ -31,7 +29,7 @@ public class GetTokensHandler : IRequestHandler<GetTokensQuery, TokensVm>
 
         int totalCount = await tokens.CountAsync(cancellationToken);
         
-        int offset = Offset(request.Page, request.PerPage);
+        int offset = CalculateOffset.Offset(request.Page, request.PerPage);
         
         List<TokenDto> selectedTokens = await tokens
             .Skip(offset)

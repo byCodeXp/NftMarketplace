@@ -21,8 +21,6 @@ public class GetCollectionTokensHandler : IRequestHandler<GetCollectionTokensQue
         _unitOfWork = unitOfWork;
     }
 
-    private int Offset (int page, int perPage) => page <= 1 ? 0 : page * perPage - perPage;
-    
     public async Task<TokensVm> Handle(GetCollectionTokensQuery request, CancellationToken cancellationToken)
     {
         var collection = await _unitOfWork.CollectionRepository.FindCollection(request.CollectionId, cancellationToken);
@@ -37,7 +35,7 @@ public class GetCollectionTokensHandler : IRequestHandler<GetCollectionTokensQue
         
         int totalCount = tokens.Count;
         
-        int offset = Offset(request.Page, request.PerPage);
+        int offset = CalculateOffset.Offset(request.Page, request.PerPage);
         var selectedTokens = tokens.Skip(offset).Take(request.PerPage).ToList();
         
         return new TokensVm

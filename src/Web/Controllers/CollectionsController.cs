@@ -26,6 +26,17 @@ public class CollectionsController : ApiController
     }
 
     /// <summary>
+    /// Retrieve a collection set by search phrase and sort before it
+    /// </summary>
+    [HttpGet("filter")]
+    [ProducesResponseType(typeof(CollectionsVm), 200)]
+    public async Task<ActionResult<CollectionsVm>> Filter([FromQuery] FilterCollectionsQuery request)
+    {
+        CollectionsVm result = await _mediator.Send(request);
+        return Ok(result);
+    }
+
+    /// <summary>
     /// Pagination
     /// </summary>
     /// <param name="page">Page number what you need</param>

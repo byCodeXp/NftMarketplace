@@ -21,8 +21,6 @@ public class GetCollectionsHandler : IRequestHandler<GetCollectionsQuery, Collec
         _unitOfWork = unitOfWork;
     }
 
-    private int Offset (int page, int perPage) => page <= 1 ? 0 : page * perPage - perPage;
-    
     public async Task<CollectionsVm> Handle(GetCollectionsQuery query, CancellationToken cancellationToken)
     {
         IQueryable<CollectionEntity> collections = _unitOfWork
@@ -31,7 +29,7 @@ public class GetCollectionsHandler : IRequestHandler<GetCollectionsQuery, Collec
 
         int totalCount = await collections.CountAsync(cancellationToken);
         
-        int offset = Offset(query.Page, query.PerPage);
+        int offset = CalculateOffset.Offset(query.Page, query.PerPage);
         
         List<CollectionDto> selectedCollections = await collections
             .Skip(offset)
