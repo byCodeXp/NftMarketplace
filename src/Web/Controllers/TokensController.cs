@@ -22,7 +22,13 @@ public class TokensController : ApiController
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Tokens pagination 
+    /// </summary>
+    /// <param name="page">Page number what you need</param>
+    /// <param name="perPage">Count tokens on page what you need</param>
     [HttpGet("page/{page}/perPage/{perPage}")]
+    [ProducesResponseType(typeof(TokensVm), 200)]
     public async Task<ActionResult<TokensVm>> Get(int page, int perPage)
     {
         var query = new GetTokensQuery
@@ -36,8 +42,12 @@ public class TokensController : ApiController
         return Ok(result);
     }
     
+    /// <summary>
+    /// Create token and retrieve data
+    /// </summary>
     [HttpPost("create")]
     [Authorize(Roles = Env.Roles.User)]
+    [ProducesResponseType(typeof(TokenDto), 200)]
     public async Task<IActionResult> Create([FromBody] CreateTokenRequest request)
     {
         IStorage storage = new TokenPictureStorage();

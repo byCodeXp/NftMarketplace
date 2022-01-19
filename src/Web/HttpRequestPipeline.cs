@@ -11,7 +11,17 @@ public class HttpRequestPipeline
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Swagger")),
+                RequestPath = "/swagger"
+            });
+            
+            app.UseSwaggerUI(options =>
+            {
+                options.InjectStylesheet("theme.css");
+            });
         }
 
         app.UseExceptionsHandler();

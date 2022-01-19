@@ -11,4 +11,4 @@ public record ErrorDetails
     {
         return JsonSerializer.Serialize(this);
     }
-};
+}

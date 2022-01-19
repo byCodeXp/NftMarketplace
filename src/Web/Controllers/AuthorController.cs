@@ -14,13 +14,18 @@ public class AuthorController : ApiController
     {
         _mediator = mediator;
     }
-
-    [HttpGet("{authorId}/collections")]
-    public async Task<ActionResult<ICollection<CollectionDto>>> GetCollections(string authorId)
+    
+    /// <summary>
+    /// Get the author by id and get all his collections that he created
+    /// </summary>
+    /// <param name="userId">User unique identifier</param>
+    [HttpGet("{userId}/collections")]
+    [ProducesResponseType(typeof(ICollection<CollectionDto>), 200)]
+    public async Task<IActionResult> GetCollections(Guid userId)
     {
         var query = new GetAuthorCollectionsQuery
         {
-            Author = authorId
+            Author = userId.ToString()
         };
 
         ICollection<CollectionDto> result = await _mediator.Send(query);

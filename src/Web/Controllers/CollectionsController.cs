@@ -25,7 +25,13 @@ public class CollectionsController : ApiController
         _mediator = mediator;
     }
 
+    /// <summary>
+    /// Pagination
+    /// </summary>
+    /// <param name="page">Page number what you need</param>
+    /// <param name="perPage">Count items on page what you need</param>
     [HttpGet("page/{page}/perPage/{perPage}")]
+    [ProducesResponseType(typeof(CollectionsVm), 200)]
     public async Task<ActionResult<CollectionsVm>> Get(int page, int perPage)
     {
         var query = new GetCollectionsQuery
@@ -39,7 +45,14 @@ public class CollectionsController : ApiController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Find collection by id and paginate tokens from that
+    /// </summary>
+    /// <param name="collectionId">Collection unique identifier</param>
+    /// <param name="page">Page number what you need</param>
+    /// <param name="perPage">Count tokens on page what you need</param>
     [HttpGet("{collectionId}/tokens/page/{page}/perPage/{perPage}")]
+    [ProducesResponseType(typeof(TokensVm), 200)]
     public async Task<ActionResult<TokensVm>> Get(Guid collectionId, int page, int perPage)
     {
         var query = new GetCollectionTokensQuery
@@ -54,8 +67,12 @@ public class CollectionsController : ApiController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Create new collection and set as owner current user
+    /// </summary>
     [HttpPost("create")]
     [Authorize(Roles = Env.Roles.User)]
+    [ProducesResponseType(typeof(CollectionDto), 200)]
     public async Task<ActionResult<CollectionDto>> Create([FromBody] CreateCollectionRequest request)
     {
         string userId = HttpContext.GetUserIdFromClaims();

@@ -6,6 +6,10 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\Web.xml</DocumentationFile>
+    </PropertyGroup>
+
     <ItemGroup>
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
         <PackageReference Include="Mapster" Version="7.2.0" />
@@ -29,6 +33,9 @@
 
     <ItemGroup>
       <None Remove="Public\Pictures\3290ff7e-9c31-4db7-aad2-1e6bf50b2ce5.jpg" />
+      <None Update="Swagger\theme.css">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
