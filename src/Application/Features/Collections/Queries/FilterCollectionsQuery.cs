@@ -45,16 +45,18 @@ public class FilterCollectionsHandler : IRequestHandler<FilterCollectionsQuery, 
             query = query.Where(entity => entity.Name.Contains(request.Search));
         }
 
-        switch (request.Reverse)
+        switch (request.Sort)
         {
-            case true:
+            case SortCollections.Alphabet:
             {
-                query = query.OrderBy(entity => request.Sort);
+                query = request.Reverse ? query.OrderByDescending(entity => entity.Name)
+                                        : query.OrderBy(entity => entity.Name);
                 break;
             }
-            case false:
+            case SortCollections.Date:
             {
-                query = query.OrderByDescending(entity => request.Sort);
+                query = request.Reverse ? query.OrderByDescending(entity => entity.CreatedTimeStamp)
+                                        : query.OrderBy(entity => entity.CreatedTimeStamp);
                 break;
             }
         }
