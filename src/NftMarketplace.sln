@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Installers", "Installers\Installers.csproj", "{DF362EB7-BA11-440E-BFE3-38584F24CE54}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B48A5190-9CA1-4901-B193-429BA4BD3277}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{FFDCE105-CF9A-4E45-8BE5-491D682A5198}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,8 +48,13 @@ Global
 		{DF362EB7-BA11-440E-BFE3-38584F24CE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF362EB7-BA11-440E-BFE3-38584F24CE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF362EB7-BA11-440E-BFE3-38584F24CE54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFDCE105-CF9A-4E45-8BE5-491D682A5198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFDCE105-CF9A-4E45-8BE5-491D682A5198}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFDCE105-CF9A-4E45-8BE5-491D682A5198}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFDCE105-CF9A-4E45-8BE5-491D682A5198}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DF362EB7-BA11-440E-BFE3-38584F24CE54} = {1834E161-1953-437F-8118-CA0A53953ED4}
+		{FFDCE105-CF9A-4E45-8BE5-491D682A5198} = {B48A5190-9CA1-4901-B193-429BA4BD3277}
 	EndGlobalSection
 EndGlobal

@@ -49,14 +49,14 @@ public class FilterCollectionsHandler : IRequestHandler<FilterCollectionsQuery, 
         {
             case SortCollections.Alphabet:
             {
-                query = request.Reverse ? query.OrderByDescending(entity => entity.Name)
-                                        : query.OrderBy(entity => entity.Name);
+                query = request.Reverse ? query.OrderBy(entity => entity.Name)
+                                        : query.OrderByDescending(entity => entity.Name);
                 break;
             }
             case SortCollections.Date:
             {
-                query = request.Reverse ? query.OrderByDescending(entity => entity.CreatedTimeStamp)
-                                        : query.OrderBy(entity => entity.CreatedTimeStamp);
+                query = request.Reverse ? query.OrderBy(entity => entity.CreatedTimeStamp)
+                                        : query.OrderByDescending(entity => entity.CreatedTimeStamp);
                 break;
             }
         }
